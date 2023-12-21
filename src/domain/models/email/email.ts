@@ -4,16 +4,16 @@ import { EmailPt } from "./email-pt";
 import { InputProps } from "../../../components/input";
 
 export interface IEmail {
-    onChange(e: FormEvent<HTMLInputElement>): void;
+  onChange(e: FormEvent<HTMLInputElement>): void;
 
-    onBlur(e: FormEvent<HTMLInputElement>): void;
+  onBlur(e: FormEvent<HTMLInputElement>): void;
 
-    validate(value: string): boolean;
+  validate(value: string): boolean;
 
-    props(): InputProps;
+  props(): InputProps;
 }
 
 export const Email = {
-    co: EmailCo,
-    pt: EmailPt,
-}
+  co: EmailCo,
+  pt: EmailPt,
+};

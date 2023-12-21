@@ -8,7 +8,7 @@ export class EmailCo extends EmailBase {
     const normalizeValue = value?.toLocaleLowerCase().trim();
 
     if (normalizeValue === "bob@domain.co") {
-      this.setMessage('invalid E-mail')
+      this.setMessage("invalid E-mail");
       return false;
     }
 

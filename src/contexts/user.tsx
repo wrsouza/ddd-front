@@ -30,15 +30,15 @@ export interface IUserProps {
 export const UserContext = createContext<IUserContext>({} as IUserContext);
 
 export const UserProvider: FC<IUserProps> = ({ children }) => {
-  const [user, setUser] = useState<IUser>({ 
-    name: { 
-      value:"", 
-      message: "" 
-    }, 
-    email: { 
-      value: "", 
-      message: "" 
-    } 
+  const [user, setUser] = useState<IUser>({
+    name: {
+      value: "",
+      message: "",
+    },
+    email: {
+      value: "",
+      message: "",
+    },
   });
   return (
     <UserContext.Provider value={{ user, setUser }}>

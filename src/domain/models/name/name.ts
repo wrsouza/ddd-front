@@ -16,39 +16,45 @@ export class Name {
   validation: IValidate;
 
   constructor(props: INameProps) {
-    this.fieldName = 'name';
+    this.fieldName = "name";
     this.fieldValues = props.data.name;
     this.setData = props.setData;
     this.validation = props.validation;
   }
 
   onChange(e: FormEvent<HTMLInputElement>) {
-    const value = e.currentTarget?.value || '';
-    this.setData((old: IUser) => ({ ...old, [this.fieldName]: { value, message: "" } }));
+    const value = e.currentTarget?.value || "";
+    this.setData((old: IUser) => ({
+      ...old,
+      [this.fieldName]: { value, message: "" },
+    }));
   }
 
   onBlur(e: FormEvent<HTMLInputElement>) {
-    const value = e.currentTarget?.value || '';
+    const value = e.currentTarget?.value || "";
     this.validate(value);
   }
 
   validate(value?: string) {
     if (!value) {
-      this.setMessage('Name is required')
+      this.setMessage("Name is required");
       return false;
     }
 
     const normalizeValue = value?.toLocaleLowerCase()?.trim();
 
     if (!this.validation.validate(normalizeValue) || normalizeValue === "bob") {
-      this.setMessage('invalid Name')
+      this.setMessage("invalid Name");
       return false;
     }
     return true;
   }
 
   setMessage(message: string) {
-    this.setData((old: IUser) => ({ ...old, [this.fieldName]: { value: old.name.value, message } }));
+    this.setData((old: IUser) => ({
+      ...old,
+      [this.fieldName]: { value: old.name.value, message },
+    }));
   }
 
   props(): InputProps {

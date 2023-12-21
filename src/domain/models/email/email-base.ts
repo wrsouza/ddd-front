@@ -5,44 +5,47 @@ import { IEmail } from "./email";
 import { IValidate } from "../../../services/validations/validation.interface";
 
 interface IEmailProps {
-    data: IUser;
-    setData: Dispatch<SetStateAction<IUser>>;
-    validation: IValidate;
+  data: IUser;
+  setData: Dispatch<SetStateAction<IUser>>;
+  validation: IValidate;
 }
 
 export abstract class EmailBase implements IEmail {
-    fieldName: string;
+  fieldName: string;
   fieldValues: IUserField;
   setData: Dispatch<SetStateAction<IUser>>;
   validation: IValidate;
 
   constructor(props: IEmailProps) {
-    this.fieldName = 'email'
+    this.fieldName = "email";
     this.fieldValues = props.data.email;
     this.setData = props.setData;
     this.validation = props.validation;
   }
 
   onChange(e: FormEvent<HTMLInputElement>): void {
-    const value = e.currentTarget?.value || '';
-    this.setData((old: IUser) => ({ ...old, [this.fieldName]: { value, message: "" } }));
+    const value = e.currentTarget?.value || "";
+    this.setData((old: IUser) => ({
+      ...old,
+      [this.fieldName]: { value, message: "" },
+    }));
   }
 
   onBlur(e: FormEvent<HTMLInputElement>): void {
-    const value = e.currentTarget?.value || '';
+    const value = e.currentTarget?.value || "";
     this.validate(value);
   }
 
   validate(value?: string): boolean {
     if (!value) {
-      this.setMessage('E-mail is required')
+      this.setMessage("E-mail is required");
       return false;
     }
-    
+
     const normalizeValue = value.toLocaleLowerCase().trim();
 
     if (!this.validation.validate(normalizeValue)) {
-      this.setMessage('invalid E-mail')
+      this.setMessage("invalid E-mail");
       return false;
     }
 
@@ -50,7 +53,10 @@ export abstract class EmailBase implements IEmail {
   }
 
   setMessage(message: string) {
-    this.setData((old: IUser) => ({ ...old, [this.fieldName]: { value: old.email.value, message } }));
+    this.setData((old: IUser) => ({
+      ...old,
+      [this.fieldName]: { value: old.email.value, message },
+    }));
   }
 
   props(): InputProps {

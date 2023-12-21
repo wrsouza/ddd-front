@@ -14,30 +14,39 @@ interface IPortugalProps {
 }
 
 export class PortugalService implements IService {
-    readonly user: IUser;
-    readonly name: Name;
-    readonly email: IEmail;
+  readonly user: IUser;
+  readonly name: Name;
+  readonly email: IEmail;
 
-    constructor(props: IPortugalProps) {
-        const { user, setUser } = props;
-        this.user = user;
-        const nameValidation = new NameValidation();
-        const emailValidation = new EmailValidation();
-        this.name = new Name({ data: user, setData: setUser, validation: nameValidation });
-        this.email = new Email['pt']({ data: user, setData: setUser, validation: emailValidation });
-    }
+  constructor(props: IPortugalProps) {
+    const { user, setUser } = props;
+    this.user = user;
+    const nameValidation = new NameValidation();
+    const emailValidation = new EmailValidation();
+    this.name = new Name({
+      data: user,
+      setData: setUser,
+      validation: nameValidation,
+    });
+    this.email = new Email["pt"]({
+      data: user,
+      setData: setUser,
+      validation: emailValidation,
+    });
+  }
 
-    render(): ReactNode {
-      return (
-        <form>
-          <h1>Portugal</h1>
-          <Input {...this.name.props()} /> 
-          <Input {...this.email.props()} /> 
-          <Button label="Send" />
-          <br /><br />
-          <div>Name: {this.user.name?.value}</div>
-          <div>Email: {this.user.email?.value}</div>
-        </form>
-      )
-    }
+  render(): ReactNode {
+    return (
+      <form>
+        <h1>Portugal New</h1>
+        <Input {...this.name.props()} />
+        <Input {...this.email.props()} />
+        <Button label="Send" />
+        <br />
+        <br />
+        <div>Name: {this.user.name?.value}</div>
+        <div>Email: {this.user.email?.value}</div>
+      </form>
+    );
+  }
 }
