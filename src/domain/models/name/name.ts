@@ -1,52 +1,42 @@
-import {
-  Dispatch,
-  FormEvent,
-  InputHTMLAttributes,
-  KeyboardEvent,
-  SetStateAction,
-} from "react";
+import { Dispatch, FormEvent, SetStateAction } from "react";
 import { IValidate } from "../../../services/validations/validation.interface";
+import { IUser } from "../../../contexts/user";
 
-interface IName extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-}
-
-interface INameKey {
-  name: string;
-}
-
-interface INameProps<T extends INameKey> {
-  data: T;
-  setData: Dispatch<SetStateAction<T>>;
+interface INameProps {
+  data: IUser;
+  setData: Dispatch<SetStateAction<IUser>>;
   validation: IValidate;
 }
 
-export class Name<T extends INameKey> implements IName {
+export class Name {
   name: string;
   id: string;
-  setData: Dispatch<SetStateAction<T>>;
-  defaultValue?: string | undefined;
+  setData: Dispatch<SetStateAction<IUser>>;
+  value?: string | undefined;
   validation: IValidate;
 
-  constructor(props: INameProps<T>) {
+  constructor(props: INameProps) {
     this.name = "name";
     this.id = "name";
     this.setData = props.setData;
-    this.defaultValue = props.data.name;
+    this.value = props.data.name;
     this.validation = props.validation;
   }
 
   onChange(e: FormEvent<HTMLInputElement>) {
-    this.setData((old) => ({ ...old, name: e.target.value }));
-    this.validation.validate(e.target.value);
+    this.setData((old: IUser) => ({ ...old, name: e.currentTarget.value }));
+    this.validate(e.currentTarget.value);
   }
 
-  onFocus(e: FormEvent) {
-    this.setData((old) => ({ ...old, name: e.target }));
-    this.validation.validate(e.target);
+  onBlur(e: FormEvent<HTMLInputElement>) {
+    this.validate(e.currentTarget.value);
   }
 
-  onBlur(e: FormEvent) {
-    this.validation.validate();
+  validate(value: string) {
+    this.validation.validate(value);
+    if (value.toLocaleLowerCase() === "bob") {
+      return false;
+    }
+    return true;
   }
 }
