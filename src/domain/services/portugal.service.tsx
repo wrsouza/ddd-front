@@ -7,31 +7,32 @@ import { IUser } from "../../contexts/user";
 import { EmailValidation } from "../../services/validations/email.validation";
 import { Email, IEmail } from "../models/email/email";
 import { Button } from "../../components/button";
-interface IColombiaProps {
+
+interface IPortugalProps {
   user: IUser;
   setUser: Dispatch<SetStateAction<IUser>>;
 }
 
-export class ColombiaService implements IService {
+export class PortugalService implements IService {
     readonly user: IUser;
     readonly name: Name;
     readonly email: IEmail;
 
-    constructor(props: IColombiaProps) {
+    constructor(props: IPortugalProps) {
         const { user, setUser } = props;
         this.user = user;
         const nameValidation = new NameValidation();
         const emailValidation = new EmailValidation();
         this.name = new Name({ data: user, setData: setUser, validation: nameValidation });
-        this.email = new Email['co']({ data: user, setData: setUser, validation: emailValidation });
+        this.email = new Email['pt']({ data: user, setData: setUser, validation: emailValidation });
     }
 
     render(): ReactNode {
       return (
         <form>
-          <h1>Colombia</h1>
-          <Input {...this.name.props()} />
-          <Input {...this.email.props()} />
+          <h1>Portugal</h1>
+          <Input {...this.name.props()} /> 
+          <Input {...this.email.props()} /> 
           <Button label="Send" />
           <br /><br />
           <div>Name: {this.user.name?.value}</div>

@@ -1,8 +1,8 @@
 import { InputHTMLAttributes } from "react";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  message: string;
+  message?: string;
 }
 
 export const Input = (props: InputProps) => {
