@@ -1,6 +1,3 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import { useUser } from "./contexts/user";
 import { Service } from "./domain/services/service";
 import { ENV_NEW_VERSION, ENV_REGION } from "./constants/environment.constant";
@@ -19,7 +16,6 @@ function App() {
   }
 
   const service = new Service[region]({ user, setUser });
-
   return <div className="App">{service.render()}</div>;
 }
 
